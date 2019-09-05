@@ -1,0 +1,33 @@
+{
+  "name": "trabalho-eng.-software-ii",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LauroM/Trabalho-Eng.-Software-II.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LauroM/Trabalho-Eng.-Software-II/issues"
+  },
+  "homepage": "https://github.com/LauroM/Trabalho-Eng.-Software-II#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2",
+    "sequelize-cli": "^5.5.1"
+  }
+}
