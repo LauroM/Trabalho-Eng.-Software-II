@@ -10,10 +10,10 @@ app.use(bodyParser.json());
 // TODO
 
 // Routes
-// TODO
+const clients = require("./routes/api/clients");
 
 // Using Routes
-// TODO
+app.use("/api/clients", clients);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running at port ${port}`));
