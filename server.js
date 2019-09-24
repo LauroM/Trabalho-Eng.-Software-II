@@ -1,6 +1,7 @@
 const app = require("express")();
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const sequelize = require("./db/models").sequelize;
 
 // body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,6 +15,10 @@ const clients = require("./routes/api/clients");
 
 // Using Routes
 app.use("/api/clients", clients);
+
+app.get("/migrate", (req,res) => {
+    sequelize.sync({force: true});
+})
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running at port ${port}`));

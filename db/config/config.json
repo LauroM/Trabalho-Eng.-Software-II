@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres@trabalho-engenharia-2",
     "password": "@Abcd1234",
-    "database": "trab-eng-2",
+    "database": "trabalho-engenharia-2",
     "host": "trabalho-engenharia-2.postgres.database.azure.com",
     "dialect": "postgres",
     "operatorsAliases": false,
