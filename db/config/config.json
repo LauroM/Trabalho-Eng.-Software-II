@@ -1,0 +1,32 @@
+{
+  "development": {
+    "username": "postgres@trabalho-engenharia-2",
+    "password": "@Abcd1234",
+    "database": "trab-eng-2",
+    "host": "trabalho-engenharia-2.postgres.database.azure.com",
+    "dialect": "postgres",
+    "operatorsAliases": false,
+    "omitNull": true,
+    "define": {
+      "freezeTableName": true,
+      "createdAt": false,
+      "updatedAt": false
+    }
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  }
+}
