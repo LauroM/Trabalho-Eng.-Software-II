@@ -1,11 +1,21 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Usuario = sequelize.define('Usuario', {
-    login: DataTypes.TEXT,
-    senha: DataTypes.TEXT
-  }, {});
+  const Usuario = sequelize.define(
+    "Usuario",
+    {
+      login: DataTypes.TEXT,
+      senha: DataTypes.TEXT
+    },
+    {}
+  );
   Usuario.associate = function(models) {
-    // associations can be defined here
+    Usuario.hasMany(models.Dentista, {
+      foreignKey: "usuario_id"
+    });
+
+    Usuario.hasMany(models.Paciente, {
+      foreignKey: "usuario_id"
+    });
   };
   return Usuario;
 };

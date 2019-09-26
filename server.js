@@ -16,9 +16,11 @@ const clients = require("./routes/api/clients");
 // Using Routes
 app.use("/api/clients", clients);
 
-app.get("/migrate", (req,res) => {
-    sequelize.sync({force: true});
-})
+app.get("/migrate", (req, res) => {
+  sequelize.sync({ force: true }).then(() => {
+    res.status(200).send({ msg: "success" });
+  });
+});
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running at port ${port}`));

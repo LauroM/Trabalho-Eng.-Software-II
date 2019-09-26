@@ -1,10 +1,16 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
-  const tipoDentista = sequelize.define('tipoDentista', {
-    descricao: DataTypes.TEXT
-  }, {});
+  const tipoDentista = sequelize.define(
+    "tipoDentista",
+    {
+      descricao: DataTypes.TEXT
+    },
+    {}
+  );
   tipoDentista.associate = function(models) {
-    // associations can be defined here
+    tipoDentista.hasMany(models.Dentista, {
+      foreignKey: "tipoDentista_id"
+    });
   };
   return tipoDentista;
 };
