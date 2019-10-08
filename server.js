@@ -12,9 +12,11 @@ app.use(bodyParser.json());
 
 // Routes
 const clients = require("./routes/api/clients");
+const usuario = require("./routes/api/usuario");
 
 // Using Routes
 app.use("/api/clients", clients);
+app.use("/api/usuario", usuario);
 
 app.get("/migrate", (req, res) => {
   sequelize.sync({ force: true }).then(() => {
