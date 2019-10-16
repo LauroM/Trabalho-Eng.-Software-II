@@ -8,7 +8,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Passport middleware
-// TODO
+app.use(passport.initialize());
+require("./config/passport")(passport);
 
 // Routes
 const clients = require("./routes/api/clients");
