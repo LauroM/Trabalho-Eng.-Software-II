@@ -28,7 +28,18 @@ router.post("/register", (req, res) => {
         });
       }
 
-      return res.status(200).send({ success: true, usuario });
+      let dentistaFields = {
+        nome: req.body.nome,
+        registro_cro: req.body.registro_cro,
+        cpf: req.body.cpf,
+        rg: req.body.rg,
+        usuario_id: usuario.id,
+        tipoDentista_id: req.body.tipoDentista_id
+      };
+
+      Dentista.create(dentistaFields).then(dentista => {
+        return res.status(200).send({ success: true, usuario });
+      });
     })
     .catch(err => {
       console.log(err);
