@@ -10,6 +10,7 @@ var opts = {
 
 module.exports = passport => {
   passport.use(
+    "user",
     new JwtStrategy(opts, (jwt_payload, done) => {
       Usuario.findOne({
         where: {

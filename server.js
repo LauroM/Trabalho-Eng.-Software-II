@@ -12,11 +12,11 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // Routes
-const clients = require("./routes/api/clients");
+const paciente = require("./routes/api/paciente");
 const usuario = require("./routes/api/usuario");
 
 // Using Routes
-app.use("/api/clients", clients);
+app.use("/api/paciente", paciente);
 app.use("/api/usuario", usuario);
 
 app.get("/migrate", (req, res) => {
