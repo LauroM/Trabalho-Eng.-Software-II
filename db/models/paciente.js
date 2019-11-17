@@ -11,8 +11,9 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Paciente.associate = function(models) {
-    Paciente.belongsTo(models.Usuario, {
-      foreignKey: "usuario_id"
+    Paciente.belongsToMany(models.Clinica, {
+      foreignKey: "paciente_id",
+      through: "Clinica_Paciente"
     });
 
     Paciente.hasMany(models.Consulta, {

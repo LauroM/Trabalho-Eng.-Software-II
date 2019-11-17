@@ -1,6 +1,7 @@
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const Usuario = require("../db/models").Usuario;
+const Dentista = require("../db/models").Dentista;
 const keys = require("./keys");
 
 var opts = {
@@ -15,7 +16,8 @@ module.exports = passport => {
       Usuario.findOne({
         where: {
           id: jwt_payload.id
-        }
+        },
+        include: [Dentista]
       }).then(usuario => {
         if (usuario) {
           return done(null, usuario);

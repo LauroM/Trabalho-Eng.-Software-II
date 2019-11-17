@@ -8,8 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       cpf: DataTypes.STRING,
       rg: DataTypes.STRING,
       usuario_id: DataTypes.INTEGER,
-      tipoDentista_id: DataTypes.INTEGER,
-      faturamento_id: DataTypes.INTEGER
+      tipoDentista_id: DataTypes.INTEGER
     },
     {}
   );
@@ -23,16 +22,16 @@ module.exports = (sequelize, DataTypes) => {
       through: "Participacao"
     });
 
-    Dentista.belongsTo(models.Faturamento, {
-      foreignKey: "faturamento_id"
-    });
-
     Dentista.hasMany(models.Consulta, {
       foreignKey: "dentista_id"
     });
 
     Dentista.belongsTo(models.Usuario, {
       foreignKey: "usuario_id"
+    });
+
+    Dentista.hasMany(models.Faturamento, {
+      foreignKey: "dentista_id"
     });
   };
   return Dentista;

@@ -3,8 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Clinica = sequelize.define(
     "Clinica",
     {
-      nome: DataTypes.TEXT,
-      faturamento_id: DataTypes.INTEGER
+      nome: DataTypes.TEXT
     },
     {}
   );
@@ -18,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       through: "Participacao"
     });
 
-    Clinica.belongsTo(models.Faturamento, {
-      foreignKey: "faturamento_id"
+    Clinica.hasMany(models.Faturamento, {
+      foreignKey: "clinica_id"
     });
   };
   return Clinica;
