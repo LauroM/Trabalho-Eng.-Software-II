@@ -43,7 +43,24 @@ router.get(
       let dentists_ids = clinica.Dentista.map(dentista => dentista.id);
       dentists_ids = [...new Set(dentists_ids)];
 
-      return res.status(200).send(dentists_ids);
+      Faturamento.findAll({
+        where: {
+          dentista_id: {
+            [Op.or]: dentists_ids
+          }
+        }
+      }).then(faturamento => {
+        if (faturamento.length === 0)
+          return res.status(404).send({
+            error: { noFaturamento: "Nenhum faturamento encontrado" }
+          });
+
+        let total = faturamento
+          .map(faturamento => faturamento.valor)
+          .reduce((total, num) => total + num);
+
+        return res.status(200).send({ total });
+      });
     });
   }
 );
