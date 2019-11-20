@@ -1,50 +1,66 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
 const keys = require("../../config/keys");
 const Usuario = require("../../db/models").Usuario;
 const Dentista = require("../../db/models").Dentista;
 
 /**
+ * Testa funcionalidade de login
+ */
+router.get(
+  "/test",
+  passport.authenticate("user", { session: false }),
+  (req, res) => {
+    res.status(200).send(req.user);
+  }
+);
+
+/**
  * Register a new user
  */
-router.post("/register", (req, res) => {
-  let userFields = {
-    login: req.body.login,
-    senha: req.body.senha
-  };
+router.post(
+  "/register",
+  passport.authenticate("user", { session: false }),
+  (req, res) => {
+    let userFields = {
+      login: req.body.login,
+      senha: req.body.senha
+    };
 
-  Usuario.findOrCreate({
-    where: {
-      login: userFields.login
-    },
-    defaults: userFields
-  })
-    .then(([usuario, created]) => {
-      if (!created) {
-        return res.status(400).send({
-          error: {
-            userExists: "Usuário já existe na base de dados"
-          }
-        });
-      }
-
-      let dentistaFields = {
-        nome: req.body.nome,
-        registro_cro: req.body.registro_cro,
-        cpf: req.body.cpf,
-        rg: req.body.rg,
-        usuario_id: usuario.id,
-        tipoDentista_id: req.body.tipoDentista_id
-      };
-
-      Dentista.create(dentistaFields).then(dentista => {
-        return res.status(200).send({ success: true, usuario });
-      });
+    Usuario.findOrCreate({
+      where: {
+        login: userFields.login
+      },
+      defaults: userFields
     })
-    .catch(err => {
-      console.log(err);
-    });
-});
+      .then(([usuario, created]) => {
+        if (!created) {
+          return res.status(400).send({
+            error: {
+              userExists: "Usuário já existe na base de dados"
+            }
+          });
+        }
+
+        let dentistaFields = {
+          nome: req.body.nome,
+          registro_cro: req.body.registro_cro,
+          cpf: req.body.cpf,
+          rg: req.body.rg,
+          usuario_id: usuario.id,
+          tipoDentista_id: req.body.tipoDentista_id
+        };
+
+        Dentista.create(dentistaFields).then(dentista => {
+          return res.status(200).send({ success: true, usuario });
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+);
 
 /**
  * Login a user

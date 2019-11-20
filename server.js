@@ -14,10 +14,16 @@ require("./config/passport")(passport);
 // Routes
 const paciente = require("./routes/api/paciente");
 const usuario = require("./routes/api/usuario");
+const tipo = require("./routes/api/tipo");
+const clinica = require("./routes/api/clinica");
+const faturamento = require("./routes/api/faturamento");
 
 // Using Routes
 app.use("/api/paciente", paciente);
 app.use("/api/usuario", usuario);
+app.use("/api/tipo", tipo);
+app.use("/api/clinica", clinica);
+app.use("/api/faturamento", faturamento);
 
 app.get("/migrate", (req, res) => {
   sequelize.sync({ force: true }).then(() => {
