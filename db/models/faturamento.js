@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       mes: DataTypes.STRING,
       valor: DataTypes.INTEGER,
-      clinica_id: DataTypes.INTEGER,
       dentista_id: DataTypes.INTEGER
     },
     {}
@@ -15,9 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "dentista_id"
     });
 
-    Faturamento.belongsTo(models.Clinica, {
-      foreignKey: "clinica_id"
-    });
   };
   return Faturamento;
 };

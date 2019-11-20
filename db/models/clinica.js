@@ -22,9 +22,6 @@ module.exports = (sequelize, DataTypes) => {
       through: "Clinica_Paciente"
     });
 
-    Clinica.hasMany(models.Faturamento, {
-      foreignKey: "clinica_id"
-    });
   };
   return Clinica;
 };
