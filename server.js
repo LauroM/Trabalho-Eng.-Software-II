@@ -17,6 +17,7 @@ const usuario = require("./routes/api/usuario");
 const tipo = require("./routes/api/tipo");
 const clinica = require("./routes/api/clinica");
 const faturamento = require("./routes/api/faturamento");
+const consulta = require("./routes/api/consulta");
 
 // Using Routes
 app.use("/api/paciente", paciente);
@@ -24,11 +25,19 @@ app.use("/api/usuario", usuario);
 app.use("/api/tipo", tipo);
 app.use("/api/clinica", clinica);
 app.use("/api/faturamento", faturamento);
+app.use("/api/consulta", consulta);
 
-app.get("/migrate", (req, res) => {
-  sequelize.sync({ force: true }).then(() => {
-    res.status(200).send({ msg: "success" });
-  });
+app.post("/syncdb", (req, res) => {
+  sequelize
+    .sync({
+      alter: true
+    })
+    .then(() => {
+      res.status(200).send({ msg: "success" });
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    });
 });
 
 const port = process.env.PORT || 5000;

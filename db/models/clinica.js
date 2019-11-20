@@ -17,6 +17,11 @@ module.exports = (sequelize, DataTypes) => {
       through: "Participacao"
     });
 
+    Clinica.belongsToMany(models.Paciente, {
+      foreignKey: "clinica_id",
+      through: "Clinica_Paciente"
+    });
+
     Clinica.hasMany(models.Faturamento, {
       foreignKey: "clinica_id"
     });

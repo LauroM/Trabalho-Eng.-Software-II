@@ -4,6 +4,7 @@ const passport = require("passport");
 const keys = require("../../config/keys");
 const Usuario = require("../../db/models").Usuario;
 const Dentista = require("../../db/models").Dentista;
+const Clinica = require("../../db/models").Clinica;
 
 /**
  * Testa funcionalidade de login
@@ -28,37 +29,44 @@ router.post(
       senha: req.body.senha
     };
 
-    Usuario.findOrCreate({
+    Clinica.findOne({
       where: {
-        login: userFields.login
-      },
-      defaults: userFields
-    })
-      .then(([usuario, created]) => {
-        if (!created) {
-          return res.status(400).send({
-            error: {
-              userExists: "Usuário já existe na base de dados"
-            }
-          });
-        }
-
-        let dentistaFields = {
-          nome: req.body.nome,
-          registro_cro: req.body.registro_cro,
-          cpf: req.body.cpf,
-          rg: req.body.rg,
-          usuario_id: usuario.id,
-          tipoDentista_id: req.body.tipoDentista_id
-        };
-
-        Dentista.create(dentistaFields).then(dentista => {
-          return res.status(200).send({ success: true, usuario });
-        });
+        id: req.user.Dentista[0].Clinicas[0].id
+      }
+    }).then(clinica => {
+      Usuario.findOrCreate({
+        where: {
+          login: userFields.login
+        },
+        defaults: userFields
       })
-      .catch(err => {
-        console.log(err);
-      });
+        .then(([usuario, created]) => {
+          if (!created) {
+            return res.status(400).send({
+              error: {
+                userExists: "Usuário já existe na base de dados"
+              }
+            });
+          }
+
+          let dentistaFields = {
+            nome: req.body.nome,
+            registro_cro: req.body.registro_cro,
+            cpf: req.body.cpf,
+            rg: req.body.rg,
+            usuario_id: usuario.id,
+            tipoDentista_id: req.body.tipoDentista_id
+          };
+
+          Dentista.create(dentistaFields).then(dentista => {
+            clinica.addDentista(dentista);
+            return res.status(200).send({ success: true, usuario });
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
   }
 );
 
