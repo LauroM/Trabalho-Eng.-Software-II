@@ -34,7 +34,7 @@ router.post(
 
     let consulta = {
       descricao: req.body.descricao,
-      dataHora: req.body.dataHora,
+      dataHora: new Date(req.body.dataHora),
       dentista_id: req.user.Dentista[0].id,
       paciente_id: req.body.paciente_id
     };
@@ -45,10 +45,13 @@ router.post(
       },
       defaults: {
         mes: consulta.dataHora.getMonth().toString(),
-        valor: 0
+        valor: 0,
+        dentista_id: req.user.Dentista[0].id
       }
     }).then(([consulta, created]) => {
-      consulta.increment(valor);
+      consulta.increment("valor", {
+        by: valor
+      });
     });
 
     Consulta.create(consulta).then(consulta => {
