@@ -55,11 +55,15 @@ router.get(
             error: { noFaturamento: "Nenhum faturamento encontrado" }
           });
 
-        let total = faturamento
-          .map(faturamento => faturamento.valor)
-          .reduce((total, num) => total + num);
+        let total = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-        return res.status(200).send({ total });
+        faturamento.map(cadaUm => {
+          total[cadaUm.mes] += cadaUm.valor;
+        });
+
+        console.log(total);
+
+        return res.status(200).send(total);
       });
     });
   }
